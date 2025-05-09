@@ -143,7 +143,12 @@ You’ll be evaluated on:
 - 📊 Sharpe Ratio
 - 📉 Max Drawdown
 
+## Cutoff Policy 
+
+![image](https://github.com/user-attachments/assets/07c6d25e-7c2e-425d-ab60-725888ee696e)
+
 Good luck finding your pairwise alpha! 🧠🚀
+
 
 
 ### For more details, check out the challenge page on [Lunor Quest](https://app.lunor.quest)
