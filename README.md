@@ -21,6 +21,7 @@ Your mission is to create a **deterministic trading strategy** that identifies c
 |-----------------------|-------------|
 | `strategy.py` (Submit ONLY this file) | Starter template for your strategy |
 | `submission_check.py`  | Local validator to ensure your code meets all requirements |
+| `fetch_data.py`  | Helper script to fetch data from Binance |
 
 
 ---
