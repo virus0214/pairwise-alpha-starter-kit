@@ -145,7 +145,7 @@ You’ll be evaluated on:
 
 ## Cutoff Policy 
 
-<img src="https://github.com/user-attachments/assets/07c6d25e-7c2e-425d-ab60-725888ee696e" width="150">
+<img src="https://github.com/user-attachments/assets/07c6d25e-7c2e-425d-ab60-725888ee696e" width="350">
 
 Good luck finding your pairwise alpha! 🧠🚀
 
