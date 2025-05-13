@@ -1,6 +1,6 @@
 # 🧠 PairWise Alpha Starter Kit
 
-Welcome to the official starter repo for the **Lunor Quest: PairWise Alpha** challenge.
+Welcome to the official starter repo for the [**Lunor Quest: PairWise Alpha**](https://app.lunor.quest/challenge/1000036) challenge.
 
 Your mission is to create a **deterministic trading strategy** that identifies coins correlated with **BTC, ETH, or SOL** — even with a time lag — and executes trades on the **Target Coin** based on their behavior.
 
