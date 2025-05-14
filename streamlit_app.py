@@ -2,7 +2,7 @@ import streamlit as st
 import json
 from textwrap import indent
 
-st.set_page_config(page_title="Lunor Strategy Generator", layout="wide")
+st.set_page_config(page_title="Lunor AI: PairWise Alpha Strategy Generator", layout="wide")
 
 # === Display Lunor Logo ===
 st.image("lunor-full.png", width=160)
