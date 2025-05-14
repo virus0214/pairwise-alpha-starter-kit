@@ -36,7 +36,7 @@ target_timeframe = st.selectbox("Target Timeframe", ["1H", "4H", "1D"], index=0)
 # --- Anchors ---
 st.subheader("🧭 Anchor Coins")
 anchors = []
-num_anchors = st.number_input("How many anchor coins?", min_value=1, max_value=5, value=2)
+num_anchors = st.number_input("How many anchor coins?", min_value=1, max_value=8, value=2)
 for i in range(num_anchors):
     with st.expander(f"Anchor #{i+1}"):
         symbol = st.text_input(f"Anchor {i+1} Symbol", key=f"a_sym_{i}", value="BTC" if i == 0 else "ETH")
@@ -47,7 +47,7 @@ for i in range(num_anchors):
 # --- Buy Rules ---
 st.subheader("📈 BUY Rules")
 buy_rules = []
-num_buy = st.number_input("Number of BUY rules (all must be true)", min_value=1, max_value=5, value=2)
+num_buy = st.number_input("Number of BUY rules (all must be true)", min_value=1, max_value=8, value=2)
 for i in range(num_buy):
     with st.expander(f"BUY Rule #{i+1}"):
         symbol = st.text_input(f"BUY Rule {i+1} Symbol", key=f"b_sym_{i}", value="BTC")
@@ -60,7 +60,7 @@ for i in range(num_buy):
 # --- Sell Rules ---
 st.subheader("📉 SELL Rules")
 sell_rules = []
-num_sell = st.number_input("Number of SELL rules (any can trigger SELL)", min_value=1, max_value=5, value=1)
+num_sell = st.number_input("Number of SELL rules (any can trigger SELL)", min_value=1, max_value=8, value=1)
 for i in range(num_sell):
     with st.expander(f"SELL Rule #{i+1}"):
         symbol = st.text_input(f"SELL Rule {i+1} Symbol", key=f"s_sym_{i}", value="ETH")
