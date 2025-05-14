@@ -19,9 +19,8 @@ PairWise Alpha asks:
 - Profitability
 - Sharpe Ratio
 - Max Drawdown
-- Correlation Validity
 
-💬 Join discussions, get help, and connect with the Lunor AI community:
+💬 Need Help? Join discussions, get help, and connect with the Lunor AI community:
 👉 [Join our Discord](https://discord.gg/6NrZmpPpTY)
 
 📘 [Read the full challenge brief](https://app.lunor.quest/challenge/1000036)
