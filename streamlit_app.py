@@ -1,17 +1,41 @@
 import streamlit as st
 import json
+from textwrap import indent
 
 st.set_page_config(page_title="Lunor Strategy Generator", layout="wide")
-st.title("📈 Strategy Generator for Lunor Quests")
-st.markdown("Fill out the form to generate a working `strategy.py` file based on your logic.")
+
+# === Display Lunor Logo ===
+st.image("lunor-full.png", width=160)
+
+# ========== HEADER & CONTEXT ==========
+st.title("🔧 Strategy Generator for PairWise Alpha Challenge")
+st.markdown("""
+Welcome to the official strategy builder for **PairWise Alpha**, Lunor's signature quest where traders and data scientists compete to build the most profitable lag-based crypto strategies.
+
+PairWise Alpha asks:
+> Can you build a deterministic strategy that exploits lagged correlations between coins like BONK and SOL?
+
+🧠 Strategies are evaluated on:
+- Profitability
+- Sharpe Ratio
+- Max Drawdown
+- Correlation Validity
+
+💬 Join discussions, get help, and connect with the Lunor AI community:
+👉 [Join our Discord](https://discord.gg/6NrZmpPpTY)
+
+📘 [Read the full challenge brief](https://app.lunor.quest/challenge/1000036)
+
+---
+""")
 
 # --- Inputs for Target Coin ---
-st.subheader("Target Coin")
+st.subheader("🎯 Target Coin")
 target_symbol = st.text_input("Target Coin Symbol", value="LDO")
 target_timeframe = st.selectbox("Target Timeframe", ["1H", "4H", "1D"], index=0)
 
 # --- Anchors ---
-st.subheader("Anchor Coins")
+st.subheader("🧭 Anchor Coins")
 anchors = []
 num_anchors = st.number_input("How many anchor coins?", min_value=1, max_value=5, value=2)
 for i in range(num_anchors):
@@ -22,7 +46,7 @@ for i in range(num_anchors):
         anchors.append({"symbol": symbol.upper(), "timeframe": tf, "lag": lag})
 
 # --- Buy Rules ---
-st.subheader("BUY Rules")
+st.subheader("📈 BUY Rules")
 buy_rules = []
 num_buy = st.number_input("Number of BUY rules (all must be true)", min_value=1, max_value=5, value=2)
 for i in range(num_buy):
@@ -35,7 +59,7 @@ for i in range(num_buy):
         buy_rules.append({"symbol": symbol.upper(), "timeframe": tf, "lag": lag, "change_pct": pct, "direction": direction})
 
 # --- Sell Rules ---
-st.subheader("SELL Rules")
+st.subheader("📉 SELL Rules")
 sell_rules = []
 num_sell = st.number_input("Number of SELL rules (any can trigger SELL)", min_value=1, max_value=5, value=1)
 for i in range(num_sell):
@@ -48,8 +72,6 @@ for i in range(num_sell):
         sell_rules.append({"symbol": symbol.upper(), "timeframe": tf, "lag": lag, "change_pct": pct, "direction": direction})
 
 # --- Generate Python ---
-from textwrap import indent
-
 def format_list(name, items):
     lines = json.dumps(items, indent=4).replace('true', 'True').replace('false', 'False')
     return f"{name} = {lines}\n"
