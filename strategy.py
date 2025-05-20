@@ -12,15 +12,16 @@ def generate_signals(candles_target: pd.DataFrame, candles_anchor: pd.DataFrame)
     - DataFrame with ['timestamp', 'signal']
     """
     try:
+        
         df = pd.merge(
             candles_target[['timestamp', 'close']],
-            candles_anchor[['timestamp', 'close_BTC', 'close_ETH']],
+            candles_anchor[['timestamp', 'close_BTC', 'close_ETH_1H', 'close_BTC_4H', 'close_ETH_4H']],
             on='timestamp',
             how='inner'
         )
 
-        df['btc_return_4h_ago'] = df['close_BTC'].pct_change().shift(4)
-        df['eth_return_4h_ago'] = df['close_ETH'].pct_change().shift(4)
+        df['btc_return_4h_ago'] = df['close_BTC_4H'].pct_change().shift(4)
+        df['eth_return_4h_ago'] = df['close_ETH_4H'].pct_change().shift(4)
 
         signals = []
         for i in range(len(df)):
