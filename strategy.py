@@ -18,42 +18,23 @@ def get_coin_metadata():
 
 def generate_signals(candles_target: pd.DataFrame, candles_anchor: pd.DataFrame) -> pd.DataFrame:
     """
-    Generate deterministic trading signals based on lagged correlation with BTC/ETH.
-    Buys if the target's return is positively correlated with BTC/ETH returns from 1–3 hours ago.
+    Buy LDO if BTC or ETH pumped >2% exactly 4 hours ago using 1H data.
     """
+
+    # Merge target and anchor OHLCV data on timestamp
     df = pd.merge(
         candles_target[['timestamp', 'close']],
-        candles_anchor[['timestamp', 'close_BTC', 'close_ETH']],
+        candles_anchor[['timestamp', 'close_BTC_1H', 'close_ETH_1H']],
         on='timestamp',
         how='inner'
     )
 
-    # Compute returns
-    df['ret_target'] = df['close'].pct_change()
-    df['ret_btc_lag1'] = df['close_BTC'].pct_change().shift(1)
-    df['ret_eth_lag1'] = df['close_ETH'].pct_change().shift(1)
-    df['ret_btc_lag2'] = df['close_BTC'].pct_change().shift(2)
-    df['ret_eth_lag2'] = df['close_ETH'].pct_change().shift(2)
-    df['ret_btc_lag3'] = df['close_BTC'].pct_change().shift(3)
-    df['ret_eth_lag3'] = df['close_ETH'].pct_change().shift(3)
+    # Calculate 4-hour-ago returns (shifted by 4 periods)
+    df['btc_return_4h_ago'] = df['close_BTC_1H'].pct_change(periods=4)
+    df['eth_return_4h_ago'] = df['close_ETH_1H'].pct_change(periods=4)
 
-    # Simple correlation window
-    window = 20
-
-    df['corr_btc_lag'] = df['ret_target'].rolling(window).corr(df['ret_btc_lag1']) + \
-                         df['ret_target'].rolling(window).corr(df['ret_btc_lag2']) + \
-                         df['ret_target'].rolling(window).corr(df['ret_btc_lag3'])
-
-    df['corr_eth_lag'] = df['ret_target'].rolling(window).corr(df['ret_eth_lag1']) + \
-                         df['ret_target'].rolling(window).corr(df['ret_eth_lag2']) + \
-                         df['ret_target'].rolling(window).corr(df['ret_eth_lag3'])
-
-    # Total lagged correlation
-    df['total_corr'] = df['corr_btc_lag'].fillna(0) + df['corr_eth_lag'].fillna(0)
-
-    # Trading logic: buy if correlation is strongly positive, sell if strongly negative
+    # Generate signals
     df['signal'] = 'HOLD'
-    df.loc[df['total_corr'] > 1.0, 'signal'] = 'BUY'
-    df.loc[df['total_corr'] < -1.0, 'signal'] = 'SELL'
+    df.loc[(df['btc_return_4h_ago'] > 0.02) | (df['eth_return_4h_ago'] > 0.02), 'signal'] = 'BUY'
 
     return df[['timestamp', 'signal']]
